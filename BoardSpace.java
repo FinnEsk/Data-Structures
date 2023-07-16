@@ -34,6 +34,7 @@ public class BoardSpace {
         else{
             for(Player player : this.players_on_space){
                 str += player.get_name();
+                str += "   ";
             }
             return str;
         }

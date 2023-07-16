@@ -59,8 +59,8 @@ public class Player {
     return this.total_moves;
    }
 
-   public void increment_total_moves(int num){
-    this.total_moves += num;
+   public void increment_total_moves(){
+    this.total_moves += 1;
    }
 
    public int get_total_wins(){
@@ -111,6 +111,8 @@ public class Player {
             this.set_position(0);
         }
 
-        this.set_moves(num);
+        if(num > 0){
+            increment_total_moves();
+        }
     }
 }

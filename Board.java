@@ -9,7 +9,7 @@ public class Board {
     static int[] standard_board_arr = {0, 5, 10, 8, 10, 7, 5, 9, 10, 6, 7, 10, 6, 5, 8, 9, 5, 10, 5, 9, 6, 8, 7, 10, 6, 8, 0};
     
     private DoublyLinkedList<BoardSpace> brd_list = new DoublyLinkedList<BoardSpace>();
-    private ArrayList<Player> players = new ArrayList<Player>();
+    public ArrayList<Player> players = new ArrayList<Player>();
 
     private int winner_index;
 
@@ -131,18 +131,22 @@ public class Board {
         for(Player s : this.players){
             playernameslist += s.get_name();
         }
-            System.out.println("|Player in game  |Player A average  |Player B average  |Player C average  |Player D average  |");
             
-            sb.append(String.format("|%16s",playernameslist));
+            sb.append("\n");
+            sb.append(String.format("|%-16s",playernameslist));
+
+        
         for(int i = 0; i < 4; i++){    
-
-            sbi.append(Integer.toString((this.players.get(i).get_total_moves()/1000)));
-            stats1 += "/";
-            stats1 += Integer.toString(players.get(i).get_total_wins()/100);
-            stats1 += "%";
-
-            if(i <= players.size()){
-                sb.append(String.format("|%18s",stats1));
+            stats1 = "";
+            if(i < players.size()){
+                stats1 += Integer.toString(players.get(i).get_total_moves()/1000);
+                stats1 += " / ";
+                stats1 += Integer.toString(players.get(i).get_total_wins()/10);
+                stats1 += "%";
+            }
+        
+            if(i < players.size()){
+                sb.append(String.format("|%-18s",stats1));
             }
             else{
                 sb.append("|                  ");
@@ -159,6 +163,7 @@ public class Board {
     public void run_one_game(ArrayList<String> new_players){
         
         // initialize the players
+
         
 
         while(winner_tester() == false){
@@ -169,9 +174,7 @@ public class Board {
         
         this.players.get(winner_index).increment_total_wins();
 
-        for(Player p : this.players){
-            p.increment_total_moves(p.get_moves());
-        }
+        
         
     }
 
@@ -188,37 +191,39 @@ public class Board {
     public String output_board(){
         StringBuilder sb = new StringBuilder();
         
-        for(int i = 0; i < 87; i ++){
+        for(int i = 0; i < 96; i ++){
             sb.append("-");
         }
         sb.append("\n");
-        sb.append("| " + "Start " + this.brd_list.get_value_at(0).get_players_on_space_str() + "|");
+        sb.append("| " + "Start" + this.brd_list.get_value_at(0).get_players_on_space_str() + "|");
         for(int i = 1; i <= 9; i ++){
-            sb.append(" " + this.brd_list.get_value_at(i).get_space_num() + this.brd_list.get_value_at(i).get_players_on_space_str() + " |" );
+            sb.append(" " + this.brd_list.get_value_at(i).get_space_num() + " " + this.brd_list.get_value_at(i).get_players_on_space_str() + " |" );
         }
         sb.append("\n");
-        for(int i = 0; i < 87; i ++){
+        for(int i = 0; i < 96; i ++){
             sb.append("-");
         }
         sb.append("\n           |");
         for(int i = 10; i <= 16; i ++){
-            sb.append(" " + this.brd_list.get_value_at(i).get_space_num() + this.brd_list.get_value_at(i).get_players_on_space_str() + " |" );
+            sb.append(" " + this.brd_list.get_value_at(i).get_space_num() + " " + this.brd_list.get_value_at(i).get_players_on_space_str() + " |" );
         }
         sb.append("\n           ");
-        for(int i = 0; i < 85; i ++){
+        for(int i = 0; i < 95; i ++){
             sb.append("-");
         }
         
         sb.append("\n           |");
         for(int i = 17; i <= 25; i ++){
-            sb.append(" " + this.brd_list.get_value_at(i).get_space_num() + this.brd_list.get_value_at(i).get_players_on_space_str() + " |" );
+            sb.append(" " + this.brd_list.get_value_at(i).get_space_num() + " " + this.brd_list.get_value_at(i).get_players_on_space_str() + " |" );
         }
-        sb.append(" End" + this.brd_list.get_value_at(26).get_players_on_space_str() + " |");
+        sb.append(" End " + this.brd_list.get_value_at(26).get_players_on_space_str() + " |");
 
         sb.append("\n           ");
-        for(int i = 0; i < 85; i ++){
+        for(int i = 0; i < 95; i ++){
             sb.append("-");
         }
+
+        sb.append("\n \n");
 
         return sb.toString();
     }

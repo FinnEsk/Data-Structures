@@ -37,28 +37,34 @@ public class driver {
 
 
         StringBuilder sbuild = new StringBuilder();
-        sbuild.append("----------------------------------------------------------------------------------------------");
+        sbuild.append("----------------------------------------------------------------------------------------------\n");
         sbuild.append("|Player in game  |Player A average  |Player B average  |Player C average  |Player D average  |\n");
         sbuild.append("----------------------------------------------------------------------------------------------");
 
+        int game_count = 0;
         for(int i = 0; i < 4; i ++){
             current_players.add(all_players[i]);
             brd3.initialize_player(all_players[i]);
             for(int j = 0; j < 1000; j ++){
+                game_count ++;
                 
                 
                 brd3.run_one_game(current_players); 
 
                 if(j % 100 == 0){
-                    System.out.println("Game " + (j+1));
+                    System.out.println("Game " + game_count);
                     System.out.println(brd3.output_board());
                 }
 
                 brd3.board_reset(); 
             }
-            //sbuild.append(brd3.output_stats());
+
+            
+
+            sbuild.append(brd3.output_stats());
             brd3.board_total_reset();
         }
+
 
         System.out.println(sbuild);
         
